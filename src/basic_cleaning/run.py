@@ -33,6 +33,10 @@ def go(args):
     # Convert last_review to datetime
     df['last_review'] = pd.to_datetime(df['last_review'])
     
+    # fix for second dataset bounds issue
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df = df[idx].copy()
+    
     # save output
     save_name = "clean_sample.csv"
     logger.info("Saving to %s", save_name)
